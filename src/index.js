@@ -1,9 +1,13 @@
 const express = require("express");
+const timeout = require("connect-timeout");
 const puppeteer = require("puppeteer-extra");
 const userAgent = require("random-useragent");
 const stealthPlugin = require("puppeteer-extra-plugin-stealth");
 
 const app = express();
+
+app.use(timeout("30s"));
+app.use(haltOnTimeout);
 
 const chromeOptions = {
   headless: true,
@@ -91,6 +95,10 @@ app.use("*", (req, res) =>
     message: "Could not be found",
   })
 );
+
+function haltOnTimeout(req, res, next) {
+  if (!req.timedout) next();
+}
 
 const port = process.env.PORT || 3000;
 

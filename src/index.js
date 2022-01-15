@@ -77,15 +77,14 @@ app.get("/:username", async (req, res) => {
   });
 
   await browser.close();
+  let query = req.query.data;
 
-  if (req.query.data) {
+  if (query) {
     response = jsonresponse["user_profile"][req.query.data];
-  } else {
-    response = jsonresponse["user_profile"];
   }
 
   res.json({
-    data: response,
+    data: response ? response : jsonresponse,
   });
 });
 

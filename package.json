@@ -1,0 +1,20 @@
+{
+  "name": "HA_Fetcher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node .",
+    "start": "node ."
+  },
+  "keywords": [],
+  "author": "Uran <uranshishko@protonmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2",
+    "puppeteer": "^13.0.1",
+    "puppeteer-extra": "^3.2.3",
+    "puppeteer-extra-plugin-stealth": "^2.9.0",
+    "random-useragent": "^0.5.0"
+  }
+}

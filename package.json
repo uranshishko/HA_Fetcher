@@ -11,11 +11,6 @@
   "author": "Uran <uranshishko@protonmail.com>",
   "license": "MIT",
   "dependencies": {
-    "connect-timeout": "^1.9.0",
-    "express": "^4.17.2",
-    "puppeteer": "^13.0.1",
-    "puppeteer-extra": "^3.2.3",
-    "puppeteer-extra-plugin-stealth": "^2.9.0",
-    "random-useragent": "^0.5.0"
+    "express": "^4.17.2"
   }
 }

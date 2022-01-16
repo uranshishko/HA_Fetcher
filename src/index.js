@@ -39,10 +39,6 @@ app.use("*", (req, res) =>
   })
 );
 
-function haltOnTimeout(req, res, next) {
-  if (!req.timedout) next();
-}
-
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log("Server is upp on port " + port));

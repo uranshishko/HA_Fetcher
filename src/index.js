@@ -21,7 +21,9 @@ app.get("/:username", (req, res) => {
         let data = JSON.parse(body);
 
         if (query) {
-          let extractedData = data["user_profile"][query];
+          let extractedData = data["user_profile"]
+            ? data["user_profile"][query]
+            : null;
           data = {};
           data[query] = extractedData;
         }

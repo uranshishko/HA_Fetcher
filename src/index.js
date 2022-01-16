@@ -1,7 +1,10 @@
 const express = require("express");
+const cors = require("cors");
 const https = require("https");
 
 const app = express();
+
+app.use(cors());
 
 app.get("/:username", (req, res) => {
   const username = req.params.username;

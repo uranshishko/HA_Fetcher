@@ -5,6 +5,7 @@ const app = express();
 
 app.get("/:username", (req, res) => {
   const username = req.params.username;
+  const query = req.query.data;
 
   https.get(
     "https://grin.co/wp-admin/admin-ajax.php?action=imc_engagement&imc_url=https://instagram.com/" +
@@ -18,6 +19,13 @@ app.get("/:username", (req, res) => {
 
       response.on("end", () => {
         let data = JSON.parse(body);
+
+        if (query) {
+          let extractedData = data["user_profile"][query];
+          data = {};
+          data[query] = extractedData;
+        }
+
         res.json(data);
       });
     }

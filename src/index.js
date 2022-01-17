@@ -1,10 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const timeout = require("connect-timeout");
 const https = require("https");
 
 const app = express();
 
 app.use(cors());
+app.use(timeout("30s"));
+app.use(haltOnTimeout);
 
 app.get("/:username", (req, res) => {
   const username = req.params.username;
@@ -43,6 +46,10 @@ app.use("*", (req, res) =>
     message: "Could not be found",
   })
 );
+
+function haltOnTimeout(req, res, next) {
+  if (!req.timeout) next();
+}
 
 const port = process.env.PORT || 3000;
 

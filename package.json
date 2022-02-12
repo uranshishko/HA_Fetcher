@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "node .",
-    "start": "node ."
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "Uran <uranshishko@protonmail.com>",

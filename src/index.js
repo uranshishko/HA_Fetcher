@@ -17,6 +17,9 @@ app.get("/:username", (req, res) => {
     .get(
       "https://grin.co/wp-admin/admin-ajax.php?action=imc_engagement&imc_url=https://instagram.com/" +
         username,
+      {
+        timeout: 30000,
+      },
       (response) => {
         var body = "";
 
@@ -39,7 +42,7 @@ app.get("/:username", (req, res) => {
         });
       }
     )
-    .on("error", () =>
+    .on("error", (e) =>
       res.json({
         statusCode: 500,
         message: "Something went wrong, please try again later",

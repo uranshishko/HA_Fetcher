@@ -58,6 +58,7 @@ app.get("/:username", (req, res) => {
 
 app.get("/testApi/:username", (req, res) => {
   const username = req.params.username;
+  const query = req.query.data;
 
   const proxy =
   "socks5://cbwCCAgVPUe1UxinihKaTJx5:5wz8Y1w9sFi3uF95syXA8J6C@stockholm.se.socks.nordhold.net:1080";
@@ -73,7 +74,29 @@ app.get("/testApi/:username", (req, res) => {
 
   https
     .get(opts, function (response) {
-      res.send(response.headers)
+      var body = "";
+
+      response.on("data", (data) => {
+        body += data;
+      });
+
+      response.on("end", () => {
+        try {
+          let data = JSON.parse(body);
+
+          if (query) {
+            let extractedData = data["user_profile"]
+              ? data["user_profile"][query]
+              : null;
+            data = {};
+            data[query] = extractedData;
+          }
+
+          res.json(data);
+        } catch(e) {
+          res.status(400).json({});
+        }
+      });
     })
     .on("error", function (e) {
       res.json(e);

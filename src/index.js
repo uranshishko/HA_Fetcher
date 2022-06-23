@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const timeout = require("connect-timeout");
 const https = require("https");
+const url = require("url");
+const { SocksProxyAgent } = require("socks-proxy-agent");
 
 const app = express();
 
@@ -15,15 +17,10 @@ app.get("/:username", (req, res) => {
 
   https
     .get(
+      "https://grin.co/wp-admin/admin-ajax.php?action=imc_engagement&imc_url=https://instagram.com/" +
+        username,
       {
         timeout: 240000,
-        host: "socks5://cbwCCAgVPUe1UxinihKaTJx5:5wz8Y1w9sFi3uF95syXA8J6C@stockholm.se.socks.nordhold.net",
-        port: 1080,
-        path: "https://grin.co/wp-admin/admin-ajax.php?action=imc_engagement&imc_url=https://instagram.com/" +
-        username,
-        headers: {
-          Host: "www.grin.co"
-        }
       },
       (response) => {
         var body = "";
@@ -65,6 +62,30 @@ app.use("*", (req, res) =>
     message: "Could not be found",
   })
 );
+
+app.get("/testApi/:username", (req, res) => {
+  const username = req.params.username;
+
+  const proxy =
+  "socks5://cbwCCAgVPUe1UxinihKaTJx5:5wz8Y1w9sFi3uF95syXA8J6C@stockholm.se.socks.nordhold.net:1080";
+
+  var endpoint =
+    "https://grin.co/wp-admin/admin-ajax.php?action=imc_engagement&imc_url=https://instagram.com/" +
+    username;
+
+  const agent = new SocksProxyAgent(proxy);
+
+  const opts = url.parse(endpoint);
+  opts.agent = agent;
+
+  https
+    .get(opts, function (response) {
+      res.send(response.headers)
+    })
+    .on("error", function (e) {
+      res.json(e);
+    });
+})
 
 function haltOnTimeout(req, res, next) {
   if (!req.timedout) next();

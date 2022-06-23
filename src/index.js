@@ -11,6 +11,8 @@ app.use(cors());
 app.use(timeout(240000));
 app.use(haltOnTimeout);
 
+app.disable("etag");
+
 app.get("/:username", (req, res) => {
   const username = req.params.username;
   const query = req.query.data;

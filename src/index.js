@@ -6,7 +6,7 @@ const https = require("https");
 const app = express();
 
 app.use(cors());
-app.use(timeout(120000));
+app.use(timeout(240000));
 app.use(haltOnTimeout);
 
 app.get("/:username", (req, res) => {

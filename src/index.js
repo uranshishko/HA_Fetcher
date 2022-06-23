@@ -56,13 +56,6 @@ app.get("/:username", (req, res) => {
     );
 });
 
-app.use("*", (req, res) =>
-  res.json({
-    statusCode: "404",
-    message: "Could not be found",
-  })
-);
-
 app.get("/testApi/:username", (req, res) => {
   const username = req.params.username;
 
@@ -86,6 +79,13 @@ app.get("/testApi/:username", (req, res) => {
       res.json(e);
     });
 })
+
+app.use("*", (req, res) =>
+  res.json({
+    statusCode: "404",
+    message: "Could not be found",
+  })
+);
 
 function haltOnTimeout(req, res, next) {
   if (!req.timedout) next();

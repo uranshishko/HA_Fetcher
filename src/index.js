@@ -6,7 +6,7 @@ const https = require("https");
 const app = express();
 
 app.use(cors());
-app.use(timeout("30s"));
+app.use(timeout(120000));
 app.use(haltOnTimeout);
 
 app.get("/:username", (req, res) => {
@@ -58,7 +58,7 @@ app.use("*", (req, res) =>
 );
 
 function haltOnTimeout(req, res, next) {
-  if (!req.timeout) next();
+  if (!req.timedout) next();
 }
 
 const port = process.env.PORT || 3000;

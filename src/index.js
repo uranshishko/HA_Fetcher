@@ -28,17 +28,21 @@ app.get("/:username", (req, res) => {
         });
 
         response.on("end", () => {
-          let data = JSON.parse(body);
+          try {
+            let data = JSON.parse(body);
 
-          if (query) {
-            let extractedData = data["user_profile"]
-              ? data["user_profile"][query]
-              : null;
-            data = {};
-            data[query] = extractedData;
+            if (query) {
+              let extractedData = data["user_profile"]
+                ? data["user_profile"][query]
+                : null;
+              data = {};
+              data[query] = extractedData;
+            }
+
+            res.json(data);
+          } catch(e) {
+            res.status(400).json({});
           }
-
-          res.json(data);
         });
       }
     )

@@ -15,10 +15,15 @@ app.get("/:username", (req, res) => {
 
   https
     .get(
-      "https://grin.co/wp-admin/admin-ajax.php?action=imc_engagement&imc_url=https://instagram.com/" +
-        username,
       {
         timeout: 240000,
+        host: "socks5://cbwCCAgVPUe1UxinihKaTJx5:5wz8Y1w9sFi3uF95syXA8J6C@stockholm.se.socks.nordhold.net",
+        port: 1080,
+        path: "https://grin.co/wp-admin/admin-ajax.php?action=imc_engagement&imc_url=https://instagram.com/" +
+        username,
+        headers: {
+          Host: "www.grin.co"
+        }
       },
       (response) => {
         var body = "";

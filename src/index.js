@@ -18,7 +18,7 @@ app.get("/:username", (req, res) => {
       "https://grin.co/wp-admin/admin-ajax.php?action=imc_engagement&imc_url=https://instagram.com/" +
         username,
       {
-        timeout: 30000,
+        timeout: 240000,
       },
       (response) => {
         var body = "";
